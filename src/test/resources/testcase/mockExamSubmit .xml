@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testcase id="mockExamSubmit" desc="提交答案">
+    <backgrounds>
+        <background id="background_mockExamSubmit" desc="数据初始化">
+            <sql database="mmc_bigdata">
+                #初始化数据
+                DELETE FROM testpapers WHERE id IN(1008317,1008318,1008319,1008320,1008321);
+                DELETE FROM papers_questions WHERE id IN(321911,321912,321913,321914,321915,321916,321917,321918,321919,321920,321921,321922);
+                DELETE FROM paperparts WHERE id IN(261667,261668,261669,261670,261671,261672,261673,261674,261675,261676);
+                DELETE FROM questions WHERE id IN(300146,300147,300148,300149,300184,300204,300205,300206,300207,300208,300209,300210);
+            </sql>
+        </background>
+    </backgrounds>
+
+    <afterSuit desc="测试后清除数据">
+        <sql database="mmc_bigdata">
+            DELETE FROM testpapers WHERE id IN(1008317,1008318,1008319,1008320,1008321);
+            DELETE FROM papers_questions WHERE id IN(321911,321912,321913,321914,321915,321916,321917,321918,321919,321920,321921,321922);
+            DELETE FROM paperparts WHERE id IN(261667,261668,261669,261670,261671,261672,261673,261674,261675,261676);
+            DELETE FROM questions WHERE id IN(300146,300147,300148,300149,300184,300204,300205,300206,300207,300208,300209,300210);
+        </sql>
+    </afterSuit>
+
+    <sql database="mmc_bigdata">
+                #清理模考试卷数据
+                DELETE FROM testpapers WHERE id IN(1008317,1008318,1008319,1008320,1008321);
+                DELETE FROM papers_questions WHERE id IN(321911,321912,321913,321914,321915,321916,321917,321918,321919,321920,321921,321922);
+                DELETE FROM paperparts WHERE id IN(261667,261668,261669,261670,261671,261672,261673,261674,261675,261676);
+                DELETE FROM questions WHERE id IN(300146,300147,300148,300149,300184,300204,300205,300206,300207,300208,300209,300210);
+
+                #新建模考数据
+                #插入试卷，试卷表
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008321', '接口测试模拟试卷', '', '2', '0', '3', '0', '1571045999', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '-1', '0', '', '1571046188', '0', '0', '0', '0', '0', '0', '1', NULL, '0', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '0', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008320', '第四单元', '', '2', '5', '3', '5', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '12', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '5', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008319', '第三单元', '', '2', '1', '3', '1', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '11', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '1', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008318', '第二单元', '', '2', '2', '3', '2', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '10', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '2', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008317', '第一单元', '', '2', '2', '3', '2', '1571045999', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '9', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '2', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+
+                #插入试卷部分内容
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261676', '4.5', '1008320', '{\"partTitle\":\"4.5\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261675', '4.4', '1008320', '{\"partTitle\":\"4.4\",\"questiontypeid\":\"3\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261674', '4.3', '1008320', '{\"partTitle\":\"4.3\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261673', '4.2', '1008320', '{\"partTitle\":\"4.2\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"1\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261672', '4.1', '1008320', '{\"partTitle\":\"4.1\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261671', '3.1', '1008319', '{\"partTitle\":\"3.1\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261670', '2.2', '1008318', '{\"partTitle\":\"2.2\",\"questiontypeid\":\"3\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261669', '2.1', '1008318', '{\"partTitle\":\"2.1\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261668', '1.2', '1008317', '{\"partTitle\":\"1.2\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"1\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261667', '1.1', '1008317', '{\"partTitle\":\"1.1\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+
+                #插入试卷和试题对应关系
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321922', '300210', '1008320', NULL, '1', '0', '0', '', '', '261676', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321921', '300209', '1008320', NULL, '1', '0', '0', '', '', '261675', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321920', '300208', '1008320', NULL, '0', '0', '300207', '', '', '261674', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321919', '300207', '1008320', NULL, '1', '0', '0', '', '', '261674', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321918', '300206', '1008320', NULL, '1', '1', '0', '', '', '261673', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321917', '300205', '1008320', NULL, '1', '0', '0', '', '', '261672', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321916', '300204', '1008319', NULL, '1', '0', '0', '', '', '261671', '0', '0', '0', '0', '1', '11');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321915', '300184', '1008318', NULL, '1', '0', '0', '', '', '261670', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321914', '300149', '1008318', NULL, '0', '0', '300148', '', '', '261669', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321913', '300148', '1008318', NULL, '1', '0', '0', '', '', '261669', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321912', '300147', '1008317', NULL, '1', '1', '0', '', '', '261668', '0', '0', '0', '0', '1', '9');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321911', '300146', '1008317', NULL, '1', '0', '0', '', '', '261667', '0', '0', '0', '0', '1', '9');
+
+                #插入试题
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300210', '<p>接口测试-判断题-2</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:36:31', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '5', '299973', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-判断题-2</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300209', '<p>接口测试-共用答案题-2</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:35:44', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '3', '299972', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-共用答案题-2</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300208', '<p>接口测试-共用题干-2（内容）</p>', '0.0', '', '300207', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:34:47', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299971', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-共用题干-2（内容）</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300207', '<p>接口测试-共用题干-2</p>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-14 17:34:47', '2019-10-14 17:36:49', '0', '0', '17767', '4242', '357', '3', '', '2', '0', '1', '0', '12', '', '', '', '', '', '164412', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300206', '<p>接口测试-多选题-2</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'AB', '0', '1', '1', '2019-10-14 17:33:32', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '4', '299970', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-多选题-2</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300205', '<p>接口测试-单选题-2</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:31:50', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299969', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-单选题-2</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300204', '<p>接口测试-判断题-1</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:30:42', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '5', '299968', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-判断题-1</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300184', '<p>接口测试-共答案题-1</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:29:41', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '3', '299948', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<p>接口测试-共答案题-1</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300149', '<p>接口测试-共题干-1（内容内容）</p>', '0.0', '', '300148', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:28:13', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299915', '1', '0', '10', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-共题干-1（内容内容）</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300148', '<p>接口测试-共题干-1</p>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-14 17:28:13', '2019-10-14 17:36:49', '0', '0', '17767', '4242', '357', '3', '', '2', '0', '1', '0', '10', '', '', '', '', '', '164412', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300147', '<p>接口测试-多选题-1</p>', '0.0', '', '0', '0', '', 'AB', '0', '1', '1', '2019-10-14 17:26:47', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '4', '299914', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<p>接口测试-多选题-1</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300146', '<p>接口测试-单选-1</p>', '0.0', '', '0', '0', '', 'A', '0', '1', '1', '2019-10-14 17:24:54', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299913', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<p>接口测试-单选-1</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+
+    </sql>
+
+    <case id="mockExamSubmit_001" desc="模考-只提交单选题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                "submitime": "1571047847",
+                                "list": [{
+                                        "answer": "B",
+                                        "questionid": "300146"
+                                    },
+                                    {
+                                        "answer": "",
+                                        "questionid": "300147"
+                                    }
+                                ],
+                    "paperid": "1008317",
+                    "starttime": "1571047837"
+                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_002" desc="模考-只提交多选题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571048860",
+                                  "list" : [
+                                    {
+                                      "answer" : "D",
+                                      "questionid" : "300146"
+                                    },
+                                    {
+                                      "answer" : "AC",
+                                      "questionid" : "300147"
+                                    }
+                                  ],
+                                  "paperid" : "1008317",
+                                  "starttime" : "1571048854"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_003" desc="模考-只提交共用题干题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571098152",
+                                  "list" : [
+                                    {
+                                      "answer" : "A",
+                                      "questionid" : "300149"
+                                    },
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300184"
+                                    }
+                                  ],
+                                  "paperid" : "1008318",
+                                  "starttime" : "1571098125"
+                                }'
+                       type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_004" desc="模考-只提交共用答案题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571098403",
+                                  "list" : [
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300149"
+                                    },
+                                    {
+                                      "answer" : "B",
+                                      "questionid" : "300184"
+                                    }
+                                  ],
+                                  "paperid" : "1008318",
+                                  "starttime" : "1571098384"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_005" desc="模考-只提交判断题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571098581",
+                                  "list" : [
+                                    {
+                                      "answer" : "A",
+                                      "questionid" : "300204"
+                                    }
+                                  ],
+                                  "paperid" : "1008319",
+                                  "starttime" : "1571098579"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_006" desc="模考-提交以上5种不同题型" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571098951",
+                                  "list" : [
+                                    {
+                                      "answer" : "A",
+                                      "questionid" : "300205"
+                                    },
+                                    {
+                                      "answer" : "B",
+                                      "questionid" : "300206"
+                                    },
+                                    {
+                                      "answer" : "C",
+                                      "questionid" : "300208"
+                                    },
+                                    {
+                                      "answer" : "D",
+                                      "questionid" : "300209"
+                                    },
+                                    {
+                                      "answer" : "A",
+                                      "questionid" : "300210"
+                                    }
+                                  ],
+                                  "paperid" : "1008320",
+                                  "starttime" : "1571098939"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_007" desc="模考-未答题提交" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571098951",
+                                  "list" : [
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300205"
+                                    },
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300206"
+                                    },
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300208"
+                                    },
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300209"
+                                    },
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300210"
+                                    }
+                                  ],
+                                  "paperid" : "1008320",
+                                  "starttime" : "1571098939"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <sql database="mmc_bigdata">
+                #真题试卷SQL（由模拟试卷改类型来的）
+                #初始化数据
+                DELETE FROM testpapers WHERE id IN(1008317,1008318,1008319,1008320,1008321);
+                DELETE FROM papers_questions WHERE id IN(321911,321912,321913,321914,321915,321916,321917,321918,321919,321920,321921,321922);
+                DELETE FROM paperparts WHERE id IN(261667,261668,261669,261670,261671,261672,261673,261674,261675,261676);
+                DELETE FROM questions WHERE id IN(300146,300147,300148,300149,300184,300204,300205,300206,300207,300208,300209,300210);
+
+                #插入试卷，试卷表
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008321', '接口测试真题试卷', '', '1', '0', '3', '0', '1571045999', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '-1', '0', '', '1571046188', '0', '0', '0', '0', '0', '0', '1', NULL, '0', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '0', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008320', '第四单元', '', '1', '5', '3', '5', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '12', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '5', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008319', '第三单元', '', '1', '1', '3', '1', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '11', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '1', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008318', '第二单元', '', '1', '2', '3', '2', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '10', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '2', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008317', '第一单元', '', '1', '2', '3', '2', '1571045999', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '9', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '2', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+
+                #插入试卷部分内容
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261676', '4.5', '1008320', '{\"partTitle\":\"4.5\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261675', '4.4', '1008320', '{\"partTitle\":\"4.4\",\"questiontypeid\":\"3\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261674', '4.3', '1008320', '{\"partTitle\":\"4.3\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261673', '4.2', '1008320', '{\"partTitle\":\"4.2\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"1\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261672', '4.1', '1008320', '{\"partTitle\":\"4.1\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261671', '3.1', '1008319', '{\"partTitle\":\"3.1\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261670', '2.2', '1008318', '{\"partTitle\":\"2.2\",\"questiontypeid\":\"3\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+				INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261669', '2.1', '1008318', '{\"partTitle\":\"2.1\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+				INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261668', '1.2', '1008317', '{\"partTitle\":\"1.2\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"1\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261667', '1.1', '1008317', '{\"partTitle\":\"1.1\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+
+                #插入试卷和试题对应关系
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321922', '300210', '1008320', NULL, '1', '0', '0', '', '', '261676', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321921', '300209', '1008320', NULL, '1', '0', '0', '', '', '261675', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321920', '300208', '1008320', NULL, '0', '0', '300207', '', '', '261674', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321919', '300207', '1008320', NULL, '1', '0', '0', '', '', '261674', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321918', '300206', '1008320', NULL, '1', '1', '0', '', '', '261673', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321917', '300205', '1008320', NULL, '1', '0', '0', '', '', '261672', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321916', '300204', '1008319', NULL, '1', '0', '0', '', '', '261671', '0', '0', '0', '0', '1', '11');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321915', '300184', '1008318', NULL, '1', '0', '0', '', '', '261670', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321914', '300149', '1008318', NULL, '0', '0', '300148', '', '', '261669', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321913', '300148', '1008318', NULL, '1', '0', '0', '', '', '261669', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321912', '300147', '1008317', NULL, '1', '1', '0', '', '', '261668', '0', '0', '0', '0', '1', '9');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321911', '300146', '1008317', NULL, '1', '0', '0', '', '', '261667', '0', '0', '0', '0', '1', '9');
+
+
+                #插入试题
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300210', '<p>接口测试-判断题-2</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:36:31', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '5', '299973', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-判断题-2</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300209', '<p>接口测试-共用答案题-2</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:35:44', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '3', '299972', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-共用答案题-2</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300208', '<p>接口测试-共用题干-2（内容）</p>', '0.0', '', '300207', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:34:47', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299971', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-共用题干-2（内容）</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300207', '<p>接口测试-共用题干-2</p>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-14 17:34:47', '2019-10-14 17:36:49', '0', '0', '17767', '4242', '357', '3', '', '2', '0', '1', '0', '12', '', '', '', '', '', '164412', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300206', '<p>接口测试-多选题-2</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'AB', '0', '1', '1', '2019-10-14 17:33:32', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '4', '299970', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-多选题-2</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300205', '<p>接口测试-单选题-2</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:31:50', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299969', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-单选题-2</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300204', '<p>接口测试-判断题-1</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:30:42', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '5', '299968', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-判断题-1</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300184', '<p>接口测试-共答案题-1</p>', '0.0', '', '0', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:29:41', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '3', '299948', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<p>接口测试-共答案题-1</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300149', '<p>接口测试-共题干-1（内容内容）</p>', '0.0', '', '300148', '0', '<p>解析内容</p>', 'A', '0', '1', '1', '2019-10-14 17:28:13', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299915', '1', '0', '10', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<p>接口测试-共题干-1（内容内容）</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300148', '<p>接口测试-共题干-1</p>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-14 17:28:13', '2019-10-14 17:36:49', '0', '0', '17767', '4242', '357', '3', '', '2', '0', '1', '0', '10', '', '', '', '', '', '164412', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300147', '<p>接口测试-多选题-1</p>', '0.0', '', '0', '0', '', 'AB', '0', '1', '1', '2019-10-14 17:26:47', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '4', '299914', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<p>接口测试-多选题-1</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300146', '<p>接口测试-单选-1</p>', '0.0', '', '0', '0', '', 'A', '0', '1', '1', '2019-10-14 17:24:54', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299913', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<p>接口测试-单选-1</p>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+    </sql>
+
+    <case id="mockExamSubmit_008" desc="真题-只提交单选题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571301871",
+                                  "list" : [
+                                    {
+                                      "answer" : "A",
+                                      "questionid" : "300146"
+                                    },
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300147"
+                                    }
+                                  ],
+                                  "paperid" : "1008317",
+                                  "starttime" : "1571301866"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_009" desc="真题-只提交多选题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571301987",
+                                  "list" : [
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300146"
+                                    },
+                                    {
+                                      "answer" : "AC",
+                                      "questionid" : "300147"
+                                    }
+                                  ],
+                                  "paperid" : "1008317",
+                                  "starttime" : "1571301979"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_010" desc="真题-只提交共用题干题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571302045",
+                                  "list" : [
+                                    {
+                                      "answer" : "B",
+                                      "questionid" : "300149"
+                                    },
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300184"
+                                    }
+                                  ],
+                                  "paperid" : "1008318",
+                                  "starttime" : "1571302034"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_011" desc="真题-只提交共用答案题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571302105",
+                                  "list" : [
+                                    {
+                                      "answer" : "",
+                                      "questionid" : "300149"
+                                    },
+                                    {
+                                      "answer" : "B",
+                                      "questionid" : "300184"
+                                    }
+                                  ],
+                                  "paperid" : "1008318",
+                                  "starttime" : "1571302098"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_012" desc="真题-只提交判断题" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571302145",
+                                  "list" : [
+                                    {
+                                      "answer" : "A",
+                                      "questionid" : "300204"
+                                    }
+                                  ],
+                                  "paperid" : "1008319",
+                                  "starttime" : "1571302133"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="mockExamSubmit_013" desc="真题-提交以上5种不同题型" tag="normal">
+        <print/>
+        <set>
+            <param answerDetail='{
+                                  "submitime" : "1571302227",
+                                  "list" : [
+                                    {
+                                      "answer" : "C",
+                                      "questionid" : "300205"
+                                    },
+                                    {
+                                      "answer" : "B",
+                                      "questionid" : "300206"
+                                    },
+                                    {
+                                      "answer" : "A",
+                                      "questionid" : "300208"
+                                    },
+                                    {
+                                      "answer" : "C",
+                                      "questionid" : "300209"
+                                    },
+                                    {
+                                      "answer" : "A",
+                                      "questionid" : "300210"
+                                    }
+                                  ],
+                                  "paperid" : "1008320",
+                                  "starttime" : "1571302212"
+                                }'
+                   type="real"/>
+        </set>
+        <call service="mockExamSubmit">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param name="answerDetail">${answerDetail}</param>
+            <param name="type">${type}</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": [],
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+</testcase>

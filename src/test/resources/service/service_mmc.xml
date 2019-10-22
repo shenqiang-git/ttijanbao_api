@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+
+    <http id="chapterAndSection"
+          url="$mmc.http.host/api/v1.0/chapterAndSection"
+          method="post"
+          desc="章节练习-列表"/>
+
+    <http id="systemPractice"
+          url="$mmc.http.host/api/v1.0/exam/systemPractice"
+          method="post"
+          desc="系统练习-列表"/>
+
+    <http id="getQuestion"
+          url="$mmc.http.host/api/v1.0/exam/getquestion"
+          method="post"
+          desc="获取题目详情"/>
+
+    <http id="recordLog"
+          url="$mmc.http.host/api/v1.0/exam/recordLog"
+          method="post"
+          desc="提交答案"/>
+
+    <http id="mockExamSubmit"
+          url="$mmc.http.host/api/v1.0/exam/mockExamSubmit"
+          method="post"
+          desc="交卷"/>
+
+    <http id="mockExamList"
+          url="$mmc.http.host/api/v1.0/exam/mockExamList"
+          method="post"
+          desc="获取模拟/真题试卷列表"/>
+
+    <http id="secondExamList"
+          url="$mmc.http.host/api/v1.0/exam/secondExamList"
+          method="post"
+          desc="获取试卷的二级列表"/>
+
+    <http id="weekReportLists"
+          url="$mmc.http.host/api/v1.0/week/weekreportLists"
+          method="get"
+          desc="获取周总结列表"/>
+
+    <http id="weekReportDetail"
+          url="$mmc.http.host/api/v1.0/week/weekReportDetail"
+          method="post"
+          desc="获取周总结详情"/>
+
+    <http id="getmyfavoritequestion"
+          url="$mmc.http.host/api/v1.0/exam/getmyfavoritequestion"
+          method="post"
+          desc="获取收藏的试题"/>
+
+    <http id="errorChapterAndSectionList"
+          url="$mmc.http.host/api/v1.0/errorChapterAndSectionList"
+          method="get"
+          desc="获取收藏/错题的章节列表"/>
+
+    <local id="redis_delByPattern"
+           class="com.rslai.st.util.Redis"
+           method="delByPattern"
+           desc="redis根据正则表达式批量删除keys" />
+
+</services>
