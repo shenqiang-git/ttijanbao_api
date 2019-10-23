@@ -3,7 +3,7 @@
 
     <http id="chapterAndSection"
           url="$mmc.http.host/api/v1.0/chapterAndSection"
-          method="post"
+          method="get"
           desc="章节练习-列表"/>
 
     <http id="systemPractice"
@@ -56,9 +56,9 @@
           method="get"
           desc="获取收藏/错题的章节列表"/>
 
-    <local id="redis_delByPattern"
-           class="com.rslai.st.util.Redis"
-           method="delByPattern"
-           desc="redis根据正则表达式批量删除keys" />
+   <http id="clearcache_chapterandsection"
+         url="$mmc.http.host/api/v1.0/clearcache_chapterandsection?subjectid=3&amp;xuekeid=357"
+         method="get"
+         desc="清理章节列表的缓存数据"/>
 
 </services>

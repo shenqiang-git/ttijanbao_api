@@ -1,0 +1,2280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testcase id="getQuestion" desc="获取试题">
+    <backgrounds>
+        <background id="background_getQuestion" desc="数据初始化">
+            <sql database="mmc_bigdata">
+                #系统练习SQL
+                #初始化数据
+                DELETE FROM testpapers WHERE id IN(20000007);
+                DELETE FROM papers_questions WHERE id IN(321940,321941,321942,321943,321944);
+                DELETE FROM paperparts WHERE id IN(261685,261686,261687,261688);
+                DELETE FROM questions WHERE id IN(300230,300231,300232,300233,300235);
+                DELETE FROM sections WHERE id IN(38000);
+                DELETE FROM chapters WHERE id IN(14000);
+
+                #插入章节
+                INSERT INTO `mmc_bigdata`.`sections` (`id`, `section`, `chapterid`, `xuekeid`, `subjectid`, `categoryid`, `industryid`, `questiontotal`, `islock`, `yaoguo_id`, `wangxiao_id`)
+                    VALUES ('38000', '接口测试-节', '14000', '357', '3', '1', '1', '0', '0', '0', '0');
+                INSERT INTO `mmc_bigdata`.`chapters` (`id`, `chapter`, `categoryid`, `subjectid`, `xuekeid`, `sectiontotal`, `is_sale`, `is_lock`, `price`, `taskid`, `order_num`, `status`, `img`, `give_paper`, `is_real`, `islock`, `yaoguo_id`, `wangxiao_id`)
+                    VALUES ('14000', '接口测试-章', '1', '3', '357', '3', '1', '1', '0.0', '0', NULL, '2', '', '0', '0', '0', '0', '0');
+
+
+                #插入系统练习
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('20000007', '接口测试-章', '', '5', '4', '3', '0', '1571280920', '傅建文', '0', '2', '1', '1', '全部', '1', '0', '1', '-1', '0', '', '1571280962', '0', '0', '0', '14000', '0', '357', '0', '', '0', '0', '100', '0.0', '0', '0', NULL, '4', '0', '0', '1', '0', '2019-10-17 10:55:20', '2019-10-17 10:55:20', '1', '0', '2018', '');
+
+                #插入试题试卷对应关系
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321944', '300235', '20000007', NULL, '0', '0', '0', '', '', '261688', '0', '0', '0', '0', '1', '0');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321943', '300231', '20000007', NULL, '0', '0', '0', '', '', '261687', '0', '0', '0', '0', '1', '0');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321942', '300233', '20000007', NULL, '0', '0', '300232', '', '', '261686', '0', '0', '0', '0', '1', '0');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321941', '300232', '20000007', NULL, '0', '0', '0', '', '', '261686', '0', '0', '0', '0', '1', '0');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321940', '300230', '20000007', NULL, '0', '0', '0', '', '', '261685', '0', '0', '0', '0', '1', '0');
+
+
+                #插入试卷分部
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261688', '判断题', '20000007', '{\"partTitle\":\"\\u5224\\u65ad\\u9898\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"0\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261687', '多选题', '20000007', '{\"partTitle\":\"\\u591a\\u9009\\u9898\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"0\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261686', '共用题干题', '20000007', '{\"partTitle\":\"\\u5171\\u7528\\u9898\\u5e72\\u9898\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"0\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261685', '单选题', '20000007', '{\"partTitle\":\"\\u5355\\u9009\\u9898\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"0\",\"missfenzhi\":\"0\"}');
+
+                #插入试题
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300235', '<![CDATA[<p>接口测试-节-判断题题目</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析</p>]]>', 'A', '0', '1', '1', '2019-10-17 10:26:05', '2019-10-17 10:30:02', '0', '0', '38000', '14000', '357', '3', '', '5', '299989', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-节-判断题题目</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300233', '<![CDATA[<p>接口测试-节-共用题干题题目-子题目一</p>]]>', '0.0', '', '300232', '0', '<![CDATA[<p>这里是解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-17 10:24:35', '2019-10-17 10:27:30', '0', '0', '38000', '14000', '357', '3', '', '1', '299987', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-节-共用题干题题目-子题目一</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300232', '<![CDATA[<p>接口测试-节-共用题干题题目</p>]]>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-17 10:24:35', '2019-10-17 10:30:02', '0', '0', '38000', '14000', '357', '3', '', '2', '0', '1', '0', '9', '', '', '', '', '', '0', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300231', '<![CDATA[<p>接口测试-节-多选题题目</p>]]>', '0.0', '', '0', '0', '', 'AB', '0', '1', '1', '2019-10-17 10:22:53', '2019-10-17 10:30:02', '0', '0', '38000', '14000', '357', '3', '', '4', '299986', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-节-多选题题目</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300230', '<![CDATA[<p>接口测试-节-单选题题目</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>这里是解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-17 10:21:41', '2019-10-17 10:30:02', '0', '0', '38000', '14000', '357', '3', '', '1', '299985', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-节-单选题题目</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+
+                #初始化错题
+                DELETE FROM testuserquestions WHERE id IN(15788,15789,15790);
+                #错题+收藏（单选题）
+                INSERT INTO `mmc_bigdata`.`testuserquestions` (`id`, `userid`, `chapterid`, `sectionid`, `questionid`, `update_tm`, `create_tm`, `is_error`, `paperid`, `is_store`)
+                    VALUES ('15788', '20008', '0', '0', '300230', '2019-10-18 09:13:15', '2019-10-18 09:13:12', '2', '0', '1');
+                #错题+收藏（多选题）
+                INSERT INTO `mmc_bigdata`.`testuserquestions` (`id`, `userid`, `chapterid`, `sectionid`, `questionid`, `update_tm`, `create_tm`, `is_error`, `paperid`, `is_store`)
+                    VALUES ('15790', '20008', '0', '0', '300231', '0000-00-00 00:00:00', '2019-10-18 09:18:10', '2', '0', '2');
+                INSERT INTO `mmc_bigdata`.`testuserquestions` (`id`, `userid`, `chapterid`, `sectionid`, `questionid`, `update_tm`, `create_tm`, `is_error`, `paperid`, `is_store`)
+                    VALUES ('15789', '20008', '0', '0', '300231', '0000-00-00 00:00:00', '2019-10-18 09:18:09', '0', '20000007', '1');
+
+                #真题试卷SQL
+                #初始化数据
+                DELETE FROM testpapers WHERE id IN(1008317,1008318,1008319,1008320,1008321);
+                DELETE FROM papers_questions WHERE id IN(321911,321912,321913,321914,321915,321916,321917,321918,321919,321920,321921,321922);
+                DELETE FROM paperparts WHERE id IN(261667,261668,261669,261670,261671,261672,261673,261674,261675,261676);
+                DELETE FROM questions WHERE id IN(300146,300147,300148,300149,300184,300204,300205,300206,300207,300208,300209,300210);
+
+                #插入试卷，试卷表
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008321', '接口测试真题试卷', '', '1', '0', '3', '0', '1571045999', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '-1', '0', '', '1571046188', '0', '0', '0', '0', '0', '0', '1', NULL, '0', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '0', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008320', '第四单元', '', '1', '5', '3', '5', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '12', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '5', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008319', '第三单元', '', '1', '1', '3', '1', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '11', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '1', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008318', '第二单元', '', '1', '2', '3', '2', '1571046000', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '10', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '2', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('1008317', '第一单元', '', '1', '2', '3', '2', '1571045999', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '1008321', '0', '', '1571046188', '2', '0', '0', '0', '0', '0', '1', NULL, '9', '0', '100', '0.0', '0', '0', '2019-10-14 17:42:57', '2', '0', '0', '1', '0', '2019-10-14 17:37:26', '2019-10-14 17:37:28', '1', '0', '2018', '');
+
+                #插入试卷部分内容
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261676', '4.5', '1008320', '{\"partTitle\":\"4.5\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261675', '4.4', '1008320', '{\"partTitle\":\"4.4\",\"questiontypeid\":\"3\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261674', '4.3', '1008320', '{\"partTitle\":\"4.3\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261673', '4.2', '1008320', '{\"partTitle\":\"4.2\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"1\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261672', '4.1', '1008320', '{\"partTitle\":\"4.1\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261671', '3.1', '1008319', '{\"partTitle\":\"3.1\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261670', '2.2', '1008318', '{\"partTitle\":\"2.2\",\"questiontypeid\":\"3\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+				INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261669', '2.1', '1008318', '{\"partTitle\":\"2.1\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+				INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261668', '1.2', '1008317', '{\"partTitle\":\"1.2\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"1\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261667', '1.1', '1008317', '{\"partTitle\":\"1.1\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+
+                #插入试卷和试题对应关系
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321922', '300210', '1008320', NULL, '1', '0', '0', '', '', '261676', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321921', '300209', '1008320', NULL, '1', '0', '0', '', '', '261675', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321920', '300208', '1008320', NULL, '0', '0', '300207', '', '', '261674', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321919', '300207', '1008320', NULL, '1', '0', '0', '', '', '261674', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321918', '300206', '1008320', NULL, '1', '1', '0', '', '', '261673', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321917', '300205', '1008320', NULL, '1', '0', '0', '', '', '261672', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321916', '300204', '1008319', NULL, '1', '0', '0', '', '', '261671', '0', '0', '0', '0', '1', '11');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321915', '300184', '1008318', NULL, '1', '0', '0', '', '', '261670', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321914', '300149', '1008318', NULL, '0', '0', '300148', '', '', '261669', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321913', '300148', '1008318', NULL, '1', '0', '0', '', '', '261669', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321912', '300147', '1008317', NULL, '1', '1', '0', '', '', '261668', '0', '0', '0', '0', '1', '9');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321911', '300146', '1008317', NULL, '1', '0', '0', '', '', '261667', '0', '0', '0', '0', '1', '9');
+
+
+                #插入试题
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300210', '<![CDATA[<p>接口测试-判断题-2</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-14 17:36:31', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '5', '299973', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-判断题-2</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300209', '<![CDATA[<p>接口测试-共用答案题-2</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-14 17:35:44', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '3', '299972', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-共用答案题-2</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300208', '<![CDATA[<p>接口测试-共用题干-2（内容）</p>]]>', '0.0', '', '300207', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-14 17:34:47', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299971', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-共用题干-2（内容）</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300207', '<![CDATA[<p>接口测试-共用题干-2</p>]]>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-14 17:34:47', '2019-10-14 17:36:49', '0', '0', '17767', '4242', '357', '3', '', '2', '0', '1', '0', '12', '', '', '', '', '', '164412', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300206', '<![CDATA[<p>接口测试-多选题-2</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'AB', '0', '1', '1', '2019-10-14 17:33:32', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '4', '299970', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-多选题-2</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300205', '<![CDATA[<p>接口测试-单选题-2</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-14 17:31:50', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299969', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-单选题-2</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300204', '<![CDATA[<p>接口测试-判断题-1</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-14 17:30:42', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '5', '299968', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-判断题-1</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300184', '<![CDATA[<p>接口测试-共答案题-1</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-14 17:29:41', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '3', '299948', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-共答案题-1</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300149', '<![CDATA[<p>接口测试-共题干-1（内容内容）</p>]]>', '0.0', '', '300148', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-14 17:28:13', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299915', '1', '0', '10', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-共题干-1（内容内容）</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300148', '<![CDATA[<p>接口测试-共题干-1</p>]]>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-14 17:28:13', '2019-10-14 17:36:49', '0', '0', '17767', '4242', '357', '3', '', '2', '0', '1', '0', '10', '', '', '', '', '', '164412', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300147', '<![CDATA[<p>接口测试-多选题-1</p>]]>', '0.0', '', '0', '0', '', 'AB', '0', '1', '1', '2019-10-14 17:26:47', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '4', '299914', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-多选题-1</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300146', '<![CDATA[<p>接口测试-单选-1</p>]]>', '0.0', '', '0', '0', '', 'A', '0', '1', '1', '2019-10-14 17:24:54', '2019-10-14 17:36:49', '0', '164412', '17767', '4242', '357', '3', '', '1', '299913', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-单选-1</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+
+
+                #模考试卷SQL
+                #数据初始化
+                DELETE FROM testpapers WHERE id IN(20000427,20000428,20000429,20000430,20000431);
+                DELETE FROM papers_questions WHERE id IN(322015,322016,322017,322018,322019,322020,322021,322022,322023,322024,322025,322026);
+                DELETE FROM paperparts WHERE id IN(261729,261730,261731,261732,261733,261734,261735,261736,261737,261738);
+                DELETE FROM questions WHERE id IN(300361,300362,300363,300364,300365,300366,300367,300368,300369,300370,300371,300372);
+
+                #插入试卷
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('20000431', '接口测试模考试卷', '', '2', '0', '3', '0', '1571811779', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '-1', '0', '', '1571811959', '0', '0', '0', '0', '0', '0', '1', NULL, '0', '0', '100', '0.0', '0', '0', '2019-10-23 14:25:50', '0', '0', '0', '1', '0', '2019-10-23 14:25:27', '2019-10-23 14:25:27', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('20000430', '第四单元', '', '2', '5', '3', '5', '1571811780', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '20000431', '0', '', '1571811959', '3', '0', '0', '0', '0', '0', '1', NULL, '12', '0', '100', '0.0', '0', '0', '2019-10-23 14:25:50', '5', '0', '0', '1', '0', '2019-10-23 14:25:27', '2019-10-23 14:25:27', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('20000429', '第三单元', '', '2', '1', '3', '1', '1571811780', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '20000431', '0', '', '1571811959', '3', '0', '0', '0', '0', '0', '1', NULL, '11', '0', '100', '0.0', '0', '0', '2019-10-23 14:25:50', '1', '0', '0', '1', '0', '2019-10-23 14:25:27', '2019-10-23 14:25:27', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('20000428', '第二单元', '', '2', '2', '3', '2', '1571811780', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '20000431', '0', '', '1571811959', '3', '0', '0', '0', '0', '0', '1', NULL, '10', '0', '100', '0.0', '0', '0', '2019-10-23 14:25:50', '2', '0', '0', '1', '0', '2019-10-23 14:25:27', '2019-10-23 14:25:27', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('20000427', '第一单元', '', '2', '2', '3', '2', '1571811779', '傅建文', '0', '2', '1', '2', '', '1', '0', '1', '20000431', '0', '', '1571811959', '3', '0', '0', '0', '0', '0', '1', NULL, '9', '0', '100', '0.0', '0', '0', '2019-10-23 14:25:50', '2', '0', '0', '1', '0', '2019-10-23 14:25:27', '2019-10-23 14:25:27', '1', '0', '2018', '');
+
+                #插入试卷试题对应关系
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322026', '300372', '20000430', NULL, '1', '0', '0', '', '', '261738', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322025', '300371', '20000430', NULL, '1', '0', '0', '', '', '261737', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322024', '300370', '20000430', NULL, '0', '0', '300369', '', '', '261736', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322023', '300369', '20000430', NULL, '1', '0', '0', '', '', '261736', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322022', '300368', '20000430', NULL, '1', '1', '0', '', '', '261735', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322021', '300367', '20000430', NULL, '1', '0', '0', '', '', '261734', '0', '0', '0', '0', '1', '12');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322020', '300366', '20000429', NULL, '1', '0', '0', '', '', '261733', '0', '0', '0', '0', '1', '11');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322019', '300365', '20000428', NULL, '1', '0', '0', '', '', '261732', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322018', '300364', '20000428', NULL, '0', '0', '300363', '', '', '261731', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322017', '300363', '20000428', NULL, '1', '0', '0', '', '', '261731', '0', '0', '0', '0', '1', '10');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322016', '300362', '20000427', NULL, '1', '1', '0', '', '', '261730', '0', '0', '0', '0', '1', '9');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('322015', '300361', '20000427', NULL, '1', '0', '0', '', '', '261729', '0', '0', '0', '0', '1', '9');
+
+                #插入试卷部分内容
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261738', '4.5', '20000430', '{\"partTitle\":\"4.5\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261737', '4.4', '20000430', '{\"partTitle\":\"4.4\",\"questiontypeid\":\"3\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261736', '4.3', '20000430', '{\"partTitle\":\"4.3\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261735', '4.2', '20000430', '{\"partTitle\":\"4.2\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"1\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261734', '4.1', '20000430', '{\"partTitle\":\"4.1\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261733', '3.1', '20000429', '{\"partTitle\":\"3.1\",\"questiontypeid\":\"5\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261732', '2.2', '20000428', '{\"partTitle\":\"2.2\",\"questiontypeid\":\"3\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261731', '2.1', '20000428', '{\"partTitle\":\"2.1\",\"questiontypeid\":\"2\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261730', '1.2', '20000427', '{\"partTitle\":\"1.2\",\"questiontypeid\":\"4\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"1\"}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261729', '1.1', '20000427', '{\"partTitle\":\"1.1\",\"questiontypeid\":\"1\",\"settinum\":\"1\",\"fenzhi\":\"1\",\"missfenzhi\":\"0\"}');
+
+                #插入试题
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300372', '<![CDATA[<p>接口测试-模考2-判断题</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-23 14:18:30', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '', '5', '300060', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-模考2-判断题</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300371', '<![CDATA[<p>接口测试-模考2-共答案题</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-23 14:17:23', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '', '3', '300059', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-模考2-共答案题</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300370', '<![CDATA[<p>(子题目)一</p>]]>', '0.0', '', '300369', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-23 14:16:23', '2019-10-23 14:20:27', '0', '164412', '17767', '4242', '357', '3', '2', '1', '300058', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>(子题目)一</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300369', '<![CDATA[<p>接口测试-模考2-共题干</p>]]>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-23 14:16:23', '2019-10-23 14:19:59', '0', '0', '17767', '4242', '357', '3', '2', '2', '0', '1', '0', '12', '', '', '', '', '', '164412', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300368', '<![CDATA[<p>接口测试-模考2-多选题</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'AB', '0', '1', '1', '2019-10-23 14:15:05', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '', '4', '300057', '1', '0', '12', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-模考2-多选题</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300367', '<![CDATA[<p>接口测试-模考2-单选题</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-23 14:10:15', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '', '1', '300056', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-模考2-单选题</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300366', '<![CDATA[<p>接口测试-模考-判断题</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-23 14:09:07', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '', '5', '300055', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-模考-判断题</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300365', '<![CDATA[<p>接口测试-模考-共答案</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-23 14:08:27', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '', '3', '300054', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-模考-共答案</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300364', '<![CDATA[<p>子题目)一</p>]]>', '0.0', '', '300363', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-23 14:07:25', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '2', '1', '300053', '1', '0', '10', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>子题目)一</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300363', '<![CDATA[<p>接口测试-模考-共题干</p>]]>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-23 14:07:25', '2019-10-23 14:19:59', '0', '0', '17767', '4242', '357', '3', '2', '2', '0', '1', '0', '10', '', '', '', '', '', '164412', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300362', '<![CDATA[<p>接口测试-模考-多选题</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'AB', '0', '1', '1', '2019-10-23 14:05:19', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '', '4', '300052', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-模考-多选题</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300361', '<![CDATA[<p>接口-模考-单选题</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-23 14:04:13', '2019-10-23 14:19:59', '0', '164412', '17767', '4242', '357', '3', '', '1', '300051', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口-模考-单选题</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+
+                #章节练习sql
+                #初始化数据
+                DELETE FROM chapters WHERE id IN(14000);
+                DELETE FROM sections WHERE id IN(38000);
+                DELETE FROM testpapers WHERE id IN(20000005,20000006);
+                DELETE FROM papers_questions WHERE id IN(321935,321936,321937,321938,321939);
+                DELETE FROM paperparts WHERE id IN(261681,261682,261683,261684);
+                DELETE FROM questions WHERE id IN(300230,300231,300232,300233,300235);
+
+                #插入章节
+                INSERT INTO `mmc_bigdata`.`chapters` (`id`, `chapter`, `categoryid`, `subjectid`, `xuekeid`, `sectiontotal`, `is_sale`, `is_lock`, `price`, `taskid`, `order_num`, `status`, `img`, `give_paper`, `is_real`, `islock`, `yaoguo_id`, `wangxiao_id`)
+                    VALUES ('14000', '接口测试-章', '1', '3', '357', '3', '1', '1', '0.0', '0', NULL, '2', '', '0', '0', '0', '0', '0');
+                INSERT INTO `mmc_bigdata`.`sections` (`id`, `section`, `chapterid`, `xuekeid`, `subjectid`, `categoryid`, `industryid`, `questiontotal`, `islock`, `yaoguo_id`, `wangxiao_id`)
+                    VALUES ('38000', '接口测试-节', '14000', '357', '3', '1', '1', '0', '0', '0', '0');
+
+                #插入试卷
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('20000006', '接口测试-节', '', '6', '4', '3', '0', '1571279852', '傅建文', '0', '2', '1', '1', '全部', '1', '0', '1', '20000005', '0', '', '1571280146', '0', '0', '0', '14000', '38000', '357', '0', '', '0', '0', '100', '0.0', '0', '0', NULL, '4', '0', '0', '1', '0', '2019-10-17 10:37:32', '2019-10-17 10:37:32', '1', '0', '2018', '');
+                INSERT INTO `mmc_bigdata`.`testpapers` (`id`, `papername`, `papername_alias`, `papertypeid`, `papernum`, `subjectid`, `totalnum`, `createtime`, `founder`, `paperprice`, `status`, `is_lock`, `is_autoload`, `testsource`, `testtype`, `taskid`, `is_sale`, `pid`, `provinceid`, `covers`, `sendtime`, `examlen`, `give_paper`, `is_real`, `chapterid`, `sectionid`, `xuekeid`, `shenhestatus`, `notpassreason`, `testid`, `testAssemblyType`, `showCont`, `nowprice`, `expectTime`, `giftId`, `shenheshijian`, `realquestionnum`, `provinceids`, `cityid`, `industryid`, `countryid`, `export_starttime`, `export_endtime`, `islive`, `init_paperid`, `year`, `xmxks`)
+                    VALUES ('20000005', '接口测试-章', '', '6', '0', '3', '0', '1571279852', '傅建文', '0', '2', '1', '1', '', '1', '0', '1', '-1', '0', '', '1571280146', '0', '0', '0', '14000', '0', '357', '0', '', '0', '0', '100', '0.0', '0', '0', NULL, '0', '0', '0', '1', '0', '2019-10-17 10:37:32', '2019-10-17 10:37:32', '1', '0', '2018', '');
+
+                #插入试卷和试题的对应关系
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321935', '300230', '20000006', NULL, '0', '0', '0', '', '', '261681', '0', '0', '0', '0', '1', '0');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321936', '300232', '20000006', NULL, '0', '0', '0', '', '', '261682', '0', '0', '0', '0', '1', '0');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321937', '300233', '20000006', NULL, '0', '0', '300232', '', '', '261682', '0', '0', '0', '0', '1', '0');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321938', '300231', '20000006', NULL, '0', '0', '0', '', '', '261683', '0', '0', '0', '0', '1', '0');
+                INSERT INTO `mmc_bigdata`.`papers_questions` (`id`, `question_id`, `paper_id`, `stem`, `score`, `missscore`, `parentid`, `analysis`, `answer`, `paperpartid`, `examtag`, `knowledge8_id`, `sectionid`, `chapterid`, `sort`, `testid`)
+                    VALUES ('321939', '300235', '20000006', NULL, '0', '0', '0', '', '', '261684', '0', '0', '0', '0', '1', '0');
+
+                #插入试卷部分内容
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261684', '判断题', '20000006', '{\"partTitle\":\"\\u5224\\u65ad\\u9898\",\"questiontypeid\":5,\"settinum\":\"1\",\"fenzhi\":0,\"missfenzhi\":0,\"xuekeids\":[]}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261683', '多选题', '20000006', '{\"partTitle\":\"\\u591a\\u9009\\u9898\",\"questiontypeid\":4,\"settinum\":\"1\",\"fenzhi\":0,\"missfenzhi\":0,\"xuekeids\":[]}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261682', '共用题干题', '20000006', '{\"partTitle\":\"\\u5171\\u7528\\u9898\\u5e72\\u9898\",\"questiontypeid\":2,\"settinum\":\"1\",\"fenzhi\":0,\"missfenzhi\":0,\"xuekeids\":[]}');
+                INSERT INTO `mmc_bigdata`.`paperparts` (`id`, `part`, `testpaperid`, `structure`)
+                    VALUES ('261681', '单选题', '20000006', '{\"partTitle\":\"\\u5355\\u9009\\u9898\",\"questiontypeid\":1,\"settinum\":\"1\",\"fenzhi\":0,\"missfenzhi\":0,\"xuekeids\":[]}');
+
+                #插入试题
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300235', '<![CDATA[<p>接口测试-节-判断题题目</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>解析</p>]]>', 'A', '0', '1', '1', '2019-10-17 10:26:05', '2019-10-17 10:30:02', '0', '0', '38000', '14000', '357', '3', '', '5', '299989', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-节-判断题题目</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300233', '<![CDATA[<p>接口测试-节-共用题干题题目-子题目一</p>]]>', '0.0', '', '300232', '0', '<![CDATA[<p>这里是解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-17 10:24:35', '2019-10-17 10:27:30', '0', '0', '38000', '14000', '357', '3', '', '1', '299987', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '1', '1', '', '0', '<![CDATA[<p>接口测试-节-共用题干题题目-子题目一</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300232', '<![CDATA[<p>接口测试-节-共用题干题题目</p>]]>', '0.0', '', '0', '1', '', '', '0', '1', '1', '2019-10-17 10:24:35', '2019-10-17 10:30:02', '0', '0', '38000', '14000', '357', '3', '', '2', '0', '1', '0', '9', '', '', '', '', '', '0', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', NULL, '', '0', '0', '1', NULL, NULL, '', '0', '2', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300231', '<![CDATA[<p>接口测试-节-多选题题目</p>]]>', '0.0', '', '0', '0', '', 'AB', '0', '1', '1', '2019-10-17 10:22:53', '2019-10-17 10:30:02', '0', '0', '38000', '14000', '357', '3', '', '4', '299986', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-节-多选题题目</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+                INSERT INTO `mmc_bigdata`.`questions` (`id`, `stem`, `score`, `difficulty`, `parentid`, `subCount`, `analysis`, `answer`, `verified`, `createdUserId`, `updatedUserId`, `createdTime`, `updatedTime`, `public`, `knowledgeid`, `sectionid`, `chapterid`, `xuekeid`, `subjectid`, `qtypetag`, `questiontypeid`, `optionid`, `status`, `istrue`, `testid`, `importbatch`, `nian`, `attribute1`, `attribute2`, `attribute3`, `stem_knowledges`, `missexam`, `usetime`, `rightrate`, `errrate`, `iserror`, `type`, `industryid`, `similarHandle`, `playcount`, `audiourl`, `setOpen`, `stem_math`, `videoanalysis`, `init_paperid`, `init_questionid`, `sort`, `init_answerRequire`, `init_topic`, `mosterroranswer`, `bjyvideoid`, `bjytype`, `province`, `city`, `colleges`)
+                    VALUES ('300230', '<![CDATA[<p>接口测试-节-单选题题目</p>]]>', '0.0', '', '0', '0', '<![CDATA[<p>这里是解析内容</p>]]>', 'A', '0', '1', '1', '2019-10-17 10:21:41', '2019-10-17 10:30:02', '0', '0', '38000', '14000', '357', '3', '', '1', '299985', '1', '0', '9', '', '', '', '', '', '', NULL, '0', '0', '0', '0', '1', '1', '2', '1', '', '0', '<![CDATA[<p>接口测试-节-单选题题目</p>]]>', '', '0', '0', '1', NULL, NULL, '', '0', '0', '', '', '');
+
+            </sql>
+        </background>
+    </backgrounds>
+
+    <afterSuit desc="测试后清除数据">
+        <sql database="mmc_bigdata">
+            #删除章节
+            DELETE FROM sections WHERE id IN(38000);
+            DELETE FROM chapters WHERE id IN(14000);
+            #清理真题试卷数据
+            DELETE FROM testpapers WHERE id IN(1008317,1008318,1008319,1008320,1008321);
+            DELETE FROM papers_questions WHERE id IN(321911,321912,321913,321914,321915,321916,321917,321918,321919,321920,321921,321922);
+            DELETE FROM paperparts WHERE id IN(261667,261668,261669,261670,261671,261672,261673,261674,261675,261676);
+            DELETE FROM questions WHERE id IN(300146,300147,300148,300149,300184,300204,300205,300206,300207,300208,300209,300210);
+            #清理模考试卷数据
+            DELETE FROM testpapers WHERE id IN(20000427,20000428,20000429,20000430,20000431);
+            DELETE FROM papers_questions WHERE id IN(322015,322016,322017,322018,322019,322020,322021,322022,322023,322024,322025,322026);
+            DELETE FROM paperparts WHERE id IN(261729,261730,261731,261732,261733,261734,261735,26136,261737,261738);
+            DELETE FROM questions WHERE id IN(300361,300362,300363,300364,300365,300366,300367,300368,300369,300370,300371,300372);
+            #清理系统练习数据
+            DELETE FROM testpapers WHERE id IN(20000007);
+            DELETE FROM papers_questions WHERE id IN(321940,321941,321942,321943,321944);
+            DELETE FROM paperparts WHERE id IN(261685,261686,261687,261688);
+            DELETE FROM questions WHERE id IN(300230,300231,300232,300233,300235);
+            #清理章节练习数据
+            DELETE FROM testpapers WHERE id IN(20000005,20000006);
+            DELETE FROM papers_questions WHERE id IN(321935,321936,321937,321938,321939);
+            DELETE FROM paperparts WHERE id IN(261681,261682,261683,261684);
+            DELETE FROM questions WHERE id IN(300230,300231,300232,300233,300235);
+            #清理错题记录
+            DELETE FROM testuserquestions WHERE id IN(15788,15789,15790);
+        </sql>
+    </afterSuit>
+
+    <case id="getQuestion_001" desc="模考-获取2道试题（单选+多选）" tag="normal">
+        <print/>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 20000427,
+                    "type": "simulation"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "questions": [{
+                            "examlen": "0",
+                            "knowledge8_id": "0",
+                            "paperpartid": "261681",
+                            "id": "300230",
+                            "stem": "接口测试-节-单选题题目",
+                            "score": "0.0",
+                            "difficulty": "",
+                            "analysis": "这里是解析内容",
+                            "answer": "A",
+                            "optionid": "299985",
+                            "is_finished": true,
+                            "answerFinished": "C",
+                            "stem_sub": "",
+                            "testpaperid": 20000006,
+                            "stem_img": [],
+                            "analysis_img": [],
+                            "type": "single_choice",
+                            "options": [{
+                                "id": 299985,
+                                "questionid": "300230",
+                                "right": "1",
+                                "content_img": [],
+                                "content": "111",
+                                "content_item": "A",
+                                "status": false
+                            }, {
+                                "id": 299985,
+                                "questionid": "300230",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "222",
+                                "content_item": "B",
+                                "status": false
+                            }, {
+                                "id": 299985,
+                                "questionid": "300230",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "333",
+                                "content_item": "C",
+                                "status": true
+                            }, {
+                                "id": 299985,
+                                "questionid": "300230",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "444",
+                                "content_item": "D",
+                                "status": false
+                            }],
+                            "is_favorite": 1,
+                            "user_answer": "",
+                            "status": 0
+                        }, {
+                            "examlen": "0",
+                            "knowledge8_id": "0",
+                            "paperpartid": "261682",
+                            "id": "300233",
+                            "stem": "接口测试-节-共用题干题题目-子题目一",
+                            "score": "0.0",
+                            "difficulty": "",
+                            "analysis": "这里是解析内容",
+                            "answer": "A",
+                            "optionid": "299987",
+                            "is_finished": true,
+                            "answerFinished": "A",
+                            "stem_sub": "",
+                            "testpaperid": 20000006,
+                            "stem_img": [],
+                            "analysis_img": [],
+                            "type": "single_choice",
+                            "options": [{
+                                "id": 299987,
+                                "questionid": "300233",
+                                "right": "1",
+                                "content_img": [],
+                                "content": "111",
+                                "content_item": "A",
+                                "status": true
+                            }, {
+                                "id": 299987,
+                                "questionid": "300233",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "222",
+                                "content_item": "B",
+                                "status": false
+                            }, {
+                                "id": 299987,
+                                "questionid": "300233",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "333",
+                                "content_item": "C",
+                                "status": false
+                            }, {
+                                "id": 299987,
+                                "questionid": "300233",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "444",
+                                "content_item": "D",
+                                "status": false
+                            }],
+                            "is_favorite": 0,
+                            "user_answer": "",
+                            "status": 0
+                        }, {
+                            "examlen": "0",
+                            "knowledge8_id": "0",
+                            "paperpartid": "261683",
+                            "id": "300231",
+                            "stem": "接口测试-节-多选题题目",
+                            "score": "0.0",
+                            "difficulty": "",
+                            "analysis": "",
+                            "answer": "AB",
+                            "optionid": "299986",
+                            "is_finished": true,
+                            "answerFinished": "ABCD",
+                            "stem_sub": "",
+                            "testpaperid": 20000006,
+                            "stem_img": [],
+                            "analysis_img": [],
+                            "type": "multiple_choice",
+                            "options": [{
+                                "id": 299986,
+                                "questionid": "300231",
+                                "right": "1",
+                                "content_img": [],
+                                "content": "111",
+                                "content_item": "A",
+                                "status": true
+                            }, {
+                                "id": 299986,
+                                "questionid": "300231",
+                                "right": "1",
+                                "content_img": [],
+                                "content": "222",
+                                "content_item": "B",
+                                "status": true
+                            }, {
+                                "id": 299986,
+                                "questionid": "300231",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "333",
+                                "content_item": "C",
+                                "status": true
+                            }, {
+                                "id": 299986,
+                                "questionid": "300231",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "444",
+                                "content_item": "D",
+                                "status": true
+                            }],
+                            "is_favorite": 1,
+                            "user_answer": "",
+                            "status": 0
+                        }, {
+                            "examlen": "0",
+                            "knowledge8_id": "0",
+                            "paperpartid": "261684",
+                            "id": "300235",
+                            "stem": "接口测试-节-判断题题目",
+                            "score": "0.0",
+                            "difficulty": "",
+                            "analysis": "解析",
+                            "answer": "A",
+                            "optionid": "299989",
+                            "is_finished": true,
+                            "answerFinished": "B",
+                            "stem_sub": "",
+                            "testpaperid": 20000006,
+                            "stem_img": [],
+                            "analysis_img": [],
+                            "type": "determine",
+                            "options": [{
+                                "id": 299989,
+                                "questionid": "300235",
+                                "right": "1",
+                                "content_img": [],
+                                "content": "正确",
+                                "content_item": "A",
+                                "status": false
+                            }, {
+                                "id": 299989,
+                                "questionid": "300235",
+                                "right": "0",
+                                "content_img": [],
+                                "content": "错误",
+                                "content_item": "B",
+                                "status": true
+                            }],
+                            "is_favorite": 0,
+                            "user_answer": "",
+                            "status": 0
+                        }],
+                        "examlen": "60",
+                        "errornum": "0",
+                        "doscore": "0",
+                        "correctrate": "0",
+                        "usetime": "0",
+                        "part": [
+                            ["300230"],
+                            ["300233"],
+                            ["300231"],
+                            ["300235"]
+                        ]
+                    },
+                    "message": "请求成功"
+                }
+
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="getQuestion_002" desc="模考-获取1道试题（判断）" tag="normal">
+        <print/>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 20000429,
+                    "type": "simulation"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "questions": [
+                            {
+                                "examlen": "3",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261733",
+                                "id": "300366",
+                                "stem": "接口测试-模考-判断题",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "300055",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "20000429",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "determine",
+                                "options": [
+                                    {
+                                        "id": 300055,
+                                        "questionid": "300366",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "正确",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300055,
+                                        "questionid": "300366",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "错误",
+                                        "content_item": "B",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            }
+                        ],
+                        "examlen": "3",
+                        "errornum": "0",
+                        "doscore": "0",
+                        "correctrate": "0",
+                        "usetime": "0",
+                        "part": [
+                            [
+                                "300366"
+                            ]
+                        ]
+                    },
+                    "message": "请求成功"
+                }
+
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="getQuestion_003" desc="模考-获取5道试题（5种不同类型）" tag="normal">
+        <print/>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 20000430,
+                    "type": "simulation"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "questions": [
+                            {
+                                "examlen": "3",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261734",
+                                "id": "300367",
+                                "stem": "接口测试-模考2-单选题",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "300056",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "20000430",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 300056,
+                                        "questionid": "300367",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300056,
+                                        "questionid": "300367",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300056,
+                                        "questionid": "300367",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300056,
+                                        "questionid": "300367",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "3",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261735",
+                                "id": "300368",
+                                "stem": "接口测试-模考2-多选题",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "AB",
+                                "optionid": "300057",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "20000430",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "multiple_choice",
+                                "options": [
+                                    {
+                                        "id": 300057,
+                                        "questionid": "300368",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300057,
+                                        "questionid": "300368",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300057,
+                                        "questionid": "300368",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300057,
+                                        "questionid": "300368",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "3",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261736",
+                                "id": "300370",
+                                "stem": "(子题目)一",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "300058",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "20000430",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 300058,
+                                        "questionid": "300370",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300058,
+                                        "questionid": "300370",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300058,
+                                        "questionid": "300370",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300058,
+                                        "questionid": "300370",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "3",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261737",
+                                "id": "300371",
+                                "stem": "接口测试-模考2-共答案题",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "300059",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "20000430",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 300059,
+                                        "questionid": "300371",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300059,
+                                        "questionid": "300371",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300059,
+                                        "questionid": "300371",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300059,
+                                        "questionid": "300371",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "3",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261738",
+                                "id": "300372",
+                                "stem": "接口测试-模考2-判断题",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "300060",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "20000430",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "determine",
+                                "options": [
+                                    {
+                                        "id": 300060,
+                                        "questionid": "300372",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "正确",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300060,
+                                        "questionid": "300372",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "错误",
+                                        "content_item": "B",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            }
+                        ],
+                        "examlen": "3",
+                        "errornum": "0",
+                        "doscore": "0",
+                        "correctrate": "0",
+                        "usetime": "0",
+                        "part": [
+                            [
+                                "300367"
+                            ],
+                            [
+                                "300368"
+                            ],
+                            [
+                                "300370"
+                            ],
+                            [
+                                "300371"
+                            ],
+                            [
+                                "300372"
+                            ]
+                        ]
+                    },
+                    "message": "请求成功"
+                }
+
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="getQuestion_004" desc="真题-获取2道试题（单选+多选）" tag="normal">
+        <print/>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 1008317,
+                    "type": "exams"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "questions": [
+                            {
+                                "examlen": "2",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261667",
+                                "id": "300146",
+                                "stem": "接口测试-单选-1",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "",
+                                "answer": "A",
+                                "optionid": "299913",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "1008317",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299913,
+                                        "questionid": "300146",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299913,
+                                        "questionid": "300146",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299913,
+                                        "questionid": "300146",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299913,
+                                        "questionid": "300146",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "2",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261668",
+                                "id": "300147",
+                                "stem": "接口测试-多选题-1",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "",
+                                "answer": "AB",
+                                "optionid": "299914",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "1008317",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "multiple_choice",
+                                "options": [
+                                    {
+                                        "id": 299914,
+                                        "questionid": "300147",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299914,
+                                        "questionid": "300147",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299914,
+                                        "questionid": "300147",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299914,
+                                        "questionid": "300147",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            }
+                        ],
+                        "examlen": "2",
+                        "errornum": "0",
+                        "doscore": "0",
+                        "correctrate": "0",
+                        "usetime": "0",
+                        "part": [
+                            [
+                                "300146"
+                            ],
+                            [
+                                "300147"
+                            ]
+                        ]
+                    },
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="getQuestion_005" desc="真题-获取1道试题（判断）" tag="normal">
+        <print/>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 1008319,
+                    "type": "exams"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                    {
+                        "code": 200,
+                        "data": {
+                            "questions": [
+                                {
+                                    "examlen": "2",
+                                    "knowledge8_id": "0",
+                                    "paperpartid": "261671",
+                                    "id": "300204",
+                                    "stem": "接口测试-判断题-1",
+                                    "score": "0.0",
+                                    "difficulty": "",
+                                    "analysis": "解析内容",
+                                    "answer": "A",
+                                    "optionid": "299968",
+                                    "is_finished": false,
+                                    "answerFinished": "",
+                                    "stem_sub": "",
+                                    "testpaperid": "1008319",
+                                    "stem_img": [],
+                                    "analysis_img": [],
+                                    "type": "determine",
+                                    "options": [
+                                        {
+                                            "id": 299968,
+                                            "questionid": "300204",
+                                            "right": "1",
+                                            "content_img": [],
+                                            "content": "正确",
+                                            "content_item": "A",
+                                            "status": false
+                                        },
+                                        {
+                                            "id": 299968,
+                                            "questionid": "300204",
+                                            "right": "0",
+                                            "content_img": [],
+                                            "content": "错误",
+                                            "content_item": "B",
+                                            "status": false
+                                        }
+                                    ],
+                                    "is_favorite": 0,
+                                    "user_answer": "",
+                                    "status": 0
+                                }
+                            ],
+                            "examlen": "2",
+                            "errornum": "0",
+                            "doscore": "0",
+                            "correctrate": "0",
+                            "usetime": "0",
+                            "part": [
+                                [
+                                    "300204"
+                                ]
+                            ]
+                        },
+                        "message": "请求成功"
+                    }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="getQuestion_006" desc="真题-获取5道试题（5种不同类型）" tag="normal">
+        <print/>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 1008320,
+                    "type": "exams"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "questions": [
+                            {
+                                "examlen": "2",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261672",
+                                "id": "300205",
+                                "stem": "接口测试-单选题-2",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "299969",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "1008320",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299969,
+                                        "questionid": "300205",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299969,
+                                        "questionid": "300205",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299969,
+                                        "questionid": "300205",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299969,
+                                        "questionid": "300205",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "2",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261673",
+                                "id": "300206",
+                                "stem": "接口测试-多选题-2",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "AB",
+                                "optionid": "299970",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "1008320",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "multiple_choice",
+                                "options": [
+                                    {
+                                        "id": 299970,
+                                        "questionid": "300206",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299970,
+                                        "questionid": "300206",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299970,
+                                        "questionid": "300206",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299970,
+                                        "questionid": "300206",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "2",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261674",
+                                "id": "300208",
+                                "stem": "接口测试-共用题干-2（内容）",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "299971",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "1008320",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299971,
+                                        "questionid": "300208",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299971,
+                                        "questionid": "300208",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299971,
+                                        "questionid": "300208",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299971,
+                                        "questionid": "300208",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "2",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261675",
+                                "id": "300209",
+                                "stem": "接口测试-共用答案题-2",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "299972",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "1008320",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299972,
+                                        "questionid": "300209",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299972,
+                                        "questionid": "300209",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299972,
+                                        "questionid": "300209",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299972,
+                                        "questionid": "300209",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "2",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261676",
+                                "id": "300210",
+                                "stem": "接口测试-判断题-2",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "299973",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "1008320",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "determine",
+                                "options": [
+                                    {
+                                        "id": 299973,
+                                        "questionid": "300210",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "正确",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299973,
+                                        "questionid": "300210",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "错误",
+                                        "content_item": "B",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            }
+                        ],
+                        "examlen": "2",
+                        "errornum": "0",
+                        "doscore": "0",
+                        "correctrate": "0",
+                        "usetime": "0",
+                        "part": [
+                            [
+                                "300205"
+                            ],
+                            [
+                                "300206"
+                            ],
+                            [
+                                "300208"
+                            ],
+                            [
+                                "300209"
+                            ],
+                            [
+                                "300210"
+                            ]
+                        ]
+                    },
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="getQuestion_007" desc="系统练习-获取4道试题（4种不同类型）" tag="normal">
+        <print/>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 20000007,
+                    "type": "chapter"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "questions": [
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261685",
+                                "id": "300230",
+                                "stem": "接口测试-节-单选题题目",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "这里是解析内容",
+                                "answer": "A",
+                                "optionid": "299985",
+                                "is_finished": true,
+                                "answerFinished": "A",
+                                "stem_sub": "",
+                                "testpaperid": 20000007,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 1,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261686",
+                                "id": "300233",
+                                "stem": "接口测试-节-共用题干题题目-子题目一",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "这里是解析内容",
+                                "answer": "A",
+                                "optionid": "299987",
+                                "is_finished": true,
+                                "answerFinished": "B",
+                                "stem_sub": "",
+                                "testpaperid": 20000007,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299987,
+                                        "questionid": "300233",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299987,
+                                        "questionid": "300233",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299987,
+                                        "questionid": "300233",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299987,
+                                        "questionid": "300233",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261687",
+                                "id": "300231",
+                                "stem": "接口测试-节-多选题题目",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "",
+                                "answer": "AB",
+                                "optionid": "299986",
+                                "is_finished": true,
+                                "answerFinished": "BCD",
+                                "stem_sub": "",
+                                "testpaperid": 20000007,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "multiple_choice",
+                                "options": [
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": true
+                                    }
+                                ],
+                                "is_favorite": 1,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261688",
+                                "id": "300235",
+                                "stem": "接口测试-节-判断题题目",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析",
+                                "answer": "A",
+                                "optionid": "299989",
+                                "is_finished": true,
+                                "answerFinished": "A",
+                                "stem_sub": "",
+                                "testpaperid": 20000007,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "determine",
+                                "options": [
+                                    {
+                                        "id": 299989,
+                                        "questionid": "300235",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "正确",
+                                        "content_item": "A",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299989,
+                                        "questionid": "300235",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "错误",
+                                        "content_item": "B",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            }
+                        ],
+                        "examlen": "60",
+                        "errornum": "0",
+                        "doscore": "0",
+                        "correctrate": "0",
+                        "usetime": "0",
+                        "part": [
+                            [
+                                "300230"
+                            ],
+                            [
+                                "300233"
+                            ],
+                            [
+                                "300231"
+                            ],
+                            [
+                                "300235"
+                            ]
+                        ]
+                    },
+                    "message": "请求成功"
+                }
+
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="getQuestion_008" desc="错题-获取2道试题" tag="normal">
+        <print/>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 38000,
+                    "type": "error"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "questions": [
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "0",
+                                "id": "300230",
+                                "stem": "接口测试-节-单选题题目",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "这里是解析内容",
+                                "answer": "A",
+                                "optionid": "299985",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": 38000,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 1,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "0",
+                                "id": "300231",
+                                "stem": "接口测试-节-多选题题目",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "",
+                                "answer": "AB",
+                                "optionid": "299986",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": 38000,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "multiple_choice",
+                                "options": [
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 1,
+                                "user_answer": "",
+                                "status": 0
+                            }
+                        ],
+                        "examlen": "60",
+                        "errornum": "0",
+                        "doscore": "0",
+                        "correctrate": "0",
+                        "usetime": "0",
+                        "part": []
+                    },
+                    "message": "请求成功"
+                }
+
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+    <case id="getQuestion_009" desc="章节练习-获取4道试题（4种不同类型）" tag="normal">
+        <print/>
+        <call service="clearcache_chapterandsection">
+        </call>
+        <call service="getQuestion">
+            <param name="http-headers">{"Authorization":"$Authorization"}</param>
+            <param>
+                {
+                    "testpaperid": 20000006,
+                    "type": "section"
+                }
+            </param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "questions": [
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261681",
+                                "id": "300230",
+                                "stem": "接口测试-节-单选题题目",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "这里是解析内容",
+                                "answer": "A",
+                                "optionid": "299985",
+                                "is_finished": true,
+                                "answerFinished": "C",
+                                "stem_sub": "",
+                                "testpaperid": 20000006,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299985,
+                                        "questionid": "300230",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 1,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261682",
+                                "id": "300233",
+                                "stem": "接口测试-节-共用题干题题目-子题目一",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "这里是解析内容",
+                                "answer": "A",
+                                "optionid": "299987",
+                                "is_finished": true,
+                                "answerFinished": "A",
+                                "stem_sub": "",
+                                "testpaperid": 20000006,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 299987,
+                                        "questionid": "300233",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299987,
+                                        "questionid": "300233",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299987,
+                                        "questionid": "300233",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299987,
+                                        "questionid": "300233",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261683",
+                                "id": "300231",
+                                "stem": "接口测试-节-多选题题目",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "",
+                                "answer": "AB",
+                                "optionid": "299986",
+                                "is_finished": true,
+                                "answerFinished": "ABCD",
+                                "stem_sub": "",
+                                "testpaperid": 20000006,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "multiple_choice",
+                                "options": [
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": true
+                                    },
+                                    {
+                                        "id": 299986,
+                                        "questionid": "300231",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": true
+                                    }
+                                ],
+                                "is_favorite": 1,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "0",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261684",
+                                "id": "300235",
+                                "stem": "接口测试-节-判断题题目",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析",
+                                "answer": "A",
+                                "optionid": "299989",
+                                "is_finished": true,
+                                "answerFinished": "B",
+                                "stem_sub": "",
+                                "testpaperid": 20000006,
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "determine",
+                                "options": [
+                                    {
+                                        "id": 299989,
+                                        "questionid": "300235",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "正确",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 299989,
+                                        "questionid": "300235",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "错误",
+                                        "content_item": "B",
+                                        "status": true
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            }
+                        ],
+                        "examlen": "60",
+                        "errornum": "0",
+                        "doscore": "0",
+                        "correctrate": "0",
+                        "usetime": "0",
+                        "part": [
+                            [
+                                "300230"
+                            ],
+                            [
+                                "300233"
+                            ],
+                            [
+                                "300231"
+                            ],
+                            [
+                                "300235"
+                            ]
+                        ]
+                    },
+                    "message": "请求成功"
+                }
+                ]]>
+            </body>
+        </assert>
+    </case>
+
+</testcase>
