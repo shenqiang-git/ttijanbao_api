@@ -5,16 +5,18 @@
             <sql database="mmc_bigdata">
                 DELETE FROM weekreports WHERE id  IN (30,31,32);
                 DELETE FROM days_question_report WHERE id IN(1581,1582,1583,1584,1585);
+                DELETE FROM studyadvice WHERE id IN(85);
 
                 INSERT INTO weekreports (`id`, `nickname`, `phone`, `subjectid`, `totaldays`, `totallessons`, `totalhours`, `totalquestions`, `uid`, `createTime`, `status`, `begin_time`, `end_time`, `sectionid`, `averageCorrect`, `mocktimes`, `sign`, `industryid`)
                     VALUES ('30', '我们', '15130585683', '3', '2', '5', '0.0', '200', '20008', '1570993203', '1', '2019-09-30', '2019-10-06', '1,5', '66', '4', '1', '1');
 
                 INSERT INTO weekreports (`id`, `nickname`, `phone`, `subjectid`, `totaldays`, `totallessons`, `totalhours`, `totalquestions`, `uid`, `createTime`, `status`, `begin_time`, `end_time`, `sectionid`, `averageCorrect`, `mocktimes`, `sign`, `industryid`)
-	                VALUES ('31', '我们', '15130585683', '3', '2', '5', '5.0', '200', '20008', '1570993203', '1', '2019-10-14', '2019-10-20', '1,5', '66', '4', '1', '1');
-                <!--##以上id=31，未实现-->
+                    VALUES ('31', '我们', '15130585683', '3', '2', '5', '5.0', '200', '20008', '1570993203', '1', '2019-09-23', '2019-09-09', '1,5', '66', '4', '1', '1');
+                INSERT INTO `mmc_bigdata`.`studyadvice` (`id`, `advicename`, `studydays`, `courselength`, `adviceinfo`, `industryid`, `papertypeid`, `answernum`, `accuracyrate`, `minstudays`, `maxstudays`, `mincourselength`, `maxcourselength`, `minanswernum`, `maxanswernum`, `minaccuracyrate`, `maxaccuracyrate`)
+                    VALUES ('85', '接口测试建议', '学习时长1～7天', '学习时长1～7小时', '接口建议内容', '12', '1', '答题个数100～7500个', '正确率5～50%', '1', '7', '1', '7', '100', '7500', '5', '50');
+
                 INSERT INTO weekreports (`id`, `nickname`, `phone`, `subjectid`, `totaldays`, `totallessons`, `totalhours`, `totalquestions`, `uid`, `createTime`, `status`, `begin_time`, `end_time`, `sectionid`, `averageCorrect`, `mocktimes`, `sign`, `industryid`)
                     VALUES ('32', '我们', '15130585683', '3', '2', '5', '0.0', '200', '20008', '1570993203', '1', '2019-10-07', '2019-10-13', '1', '66', '4', '1', '1');
-
                 INSERT INTO `mmc_bigdata`.`days_question_report` (`id`, `uid`, `totalnum`, `correct_rate`, `createTime`, `is_login`, `lession`, `learnTime`, `testTimes`)
                     VALUES ('1581', '20008', '22', '18', '2019-10-07', '1', '0', '0.00', '10');
                 INSERT INTO `mmc_bigdata`.`days_question_report` (`id`, `uid`, `totalnum`, `correct_rate`, `createTime`, `is_login`, `lession`, `learnTime`, `testTimes`)
@@ -33,6 +35,7 @@
         <sql database="mmc_bigdata">
             DELETE FROM weekreports WHERE id  IN (30,31,32);
             DELETE FROM days_question_report WHERE id IN(1581,1582,1583,1584,1585);
+            DELETE FROM studyadvice WHERE id IN(85);
         </sql>
     </afterSuit>
 
@@ -118,7 +121,7 @@
         </assert>
     </case>
 
-    <case id="weekReportDetail_002" desc="学习时长为5、每日答题无数据情况（未实现，应该有其他关联表）" tag="debug">
+    <case id="weekReportDetail_002" desc="学习时长为5、每日答题无数据情况" tag="normal">
         <print/>
         <call service="weekReportDetail">
             <param name="http-headers">{"Authorization":"$Authorization"}</param>
@@ -133,6 +136,68 @@
             <status>200</status>
             <body>
                 <![CDATA[
+                {
+                    "code": 200,
+                    "data": {
+                        "week": {
+                            "totaldays": "2",
+                            "totallessons": "5",
+                            "totalhours": "5.0"
+                        },
+                        "maxnumber": 100,
+                        "question": [
+                            {
+                                "totalnum": 0,
+                                "correct_rate": "0%",
+                                "createTime": "9.23"
+                            },
+                            {
+                                "totalnum": 0,
+                                "correct_rate": "0%",
+                                "createTime": "9.24"
+                            },
+                            {
+                                "totalnum": 0,
+                                "correct_rate": "0%",
+                                "createTime": "9.25"
+                            },
+                            {
+                                "totalnum": 0,
+                                "correct_rate": "0%",
+                                "createTime": "9.26"
+                            },
+                            {
+                                "totalnum": 0,
+                                "correct_rate": "0%",
+                                "createTime": "9.27"
+                            },
+                            {
+                                "totalnum": 0,
+                                "correct_rate": "0%",
+                                "createTime": "9.28"
+                            },
+                            {
+                                "totalnum": 0,
+                                "correct_rate": "0%",
+                                "createTime": "9.29"
+                            }
+                        ],
+                        "sectionlist": [
+                            {
+                                "id": 1,
+                                "name": "护理程序"
+                            },
+                            {
+                                "id": 5,
+                                "name": "卧位和安全的护理"
+                            }
+                        ],
+                        "advise": "接口建议内容本周模拟考试4次，平均正确率66%；多参加模考对通过考试更有帮助",
+                        "aiLogo": "http://huatu-yl-mmc.oss-cn-beijing.aliyuncs.com/images/20180904/2018090423041157454034.jpg",
+                        "aiName": "小张老师的建议"
+                    },
+                    "message": "请求成功"
+                }
 
                 ]]>
             </body>
@@ -208,5 +273,3 @@
     </case>
 
 </testcase>
-
-<!--#####课时不是0时，会报错，需要进一步确认下-->

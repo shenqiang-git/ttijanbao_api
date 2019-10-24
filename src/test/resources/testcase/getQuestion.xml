@@ -3,6 +3,8 @@
     <backgrounds>
         <background id="background_getQuestion" desc="数据初始化">
             <sql database="mmc_bigdata">
+                #清理做题记录
+                DELETE FROM `record_question_log` WHERE uid=20008;
                 #系统练习SQL
                 #初始化数据
                 DELETE FROM testpapers WHERE id IN(20000007);
@@ -365,217 +367,140 @@
                 {
                     "code": 200,
                     "data": {
-                        "questions": [{
-                            "examlen": "0",
-                            "knowledge8_id": "0",
-                            "paperpartid": "261681",
-                            "id": "300230",
-                            "stem": "接口测试-节-单选题题目",
-                            "score": "0.0",
-                            "difficulty": "",
-                            "analysis": "这里是解析内容",
-                            "answer": "A",
-                            "optionid": "299985",
-                            "is_finished": true,
-                            "answerFinished": "C",
-                            "stem_sub": "",
-                            "testpaperid": 20000006,
-                            "stem_img": [],
-                            "analysis_img": [],
-                            "type": "single_choice",
-                            "options": [{
-                                "id": 299985,
-                                "questionid": "300230",
-                                "right": "1",
-                                "content_img": [],
-                                "content": "111",
-                                "content_item": "A",
-                                "status": false
-                            }, {
-                                "id": 299985,
-                                "questionid": "300230",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "222",
-                                "content_item": "B",
-                                "status": false
-                            }, {
-                                "id": 299985,
-                                "questionid": "300230",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "333",
-                                "content_item": "C",
-                                "status": true
-                            }, {
-                                "id": 299985,
-                                "questionid": "300230",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "444",
-                                "content_item": "D",
-                                "status": false
-                            }],
-                            "is_favorite": 1,
-                            "user_answer": "",
-                            "status": 0
-                        }, {
-                            "examlen": "0",
-                            "knowledge8_id": "0",
-                            "paperpartid": "261682",
-                            "id": "300233",
-                            "stem": "接口测试-节-共用题干题题目-子题目一",
-                            "score": "0.0",
-                            "difficulty": "",
-                            "analysis": "这里是解析内容",
-                            "answer": "A",
-                            "optionid": "299987",
-                            "is_finished": true,
-                            "answerFinished": "A",
-                            "stem_sub": "",
-                            "testpaperid": 20000006,
-                            "stem_img": [],
-                            "analysis_img": [],
-                            "type": "single_choice",
-                            "options": [{
-                                "id": 299987,
-                                "questionid": "300233",
-                                "right": "1",
-                                "content_img": [],
-                                "content": "111",
-                                "content_item": "A",
-                                "status": true
-                            }, {
-                                "id": 299987,
-                                "questionid": "300233",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "222",
-                                "content_item": "B",
-                                "status": false
-                            }, {
-                                "id": 299987,
-                                "questionid": "300233",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "333",
-                                "content_item": "C",
-                                "status": false
-                            }, {
-                                "id": 299987,
-                                "questionid": "300233",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "444",
-                                "content_item": "D",
-                                "status": false
-                            }],
-                            "is_favorite": 0,
-                            "user_answer": "",
-                            "status": 0
-                        }, {
-                            "examlen": "0",
-                            "knowledge8_id": "0",
-                            "paperpartid": "261683",
-                            "id": "300231",
-                            "stem": "接口测试-节-多选题题目",
-                            "score": "0.0",
-                            "difficulty": "",
-                            "analysis": "",
-                            "answer": "AB",
-                            "optionid": "299986",
-                            "is_finished": true,
-                            "answerFinished": "ABCD",
-                            "stem_sub": "",
-                            "testpaperid": 20000006,
-                            "stem_img": [],
-                            "analysis_img": [],
-                            "type": "multiple_choice",
-                            "options": [{
-                                "id": 299986,
-                                "questionid": "300231",
-                                "right": "1",
-                                "content_img": [],
-                                "content": "111",
-                                "content_item": "A",
-                                "status": true
-                            }, {
-                                "id": 299986,
-                                "questionid": "300231",
-                                "right": "1",
-                                "content_img": [],
-                                "content": "222",
-                                "content_item": "B",
-                                "status": true
-                            }, {
-                                "id": 299986,
-                                "questionid": "300231",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "333",
-                                "content_item": "C",
-                                "status": true
-                            }, {
-                                "id": 299986,
-                                "questionid": "300231",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "444",
-                                "content_item": "D",
-                                "status": true
-                            }],
-                            "is_favorite": 1,
-                            "user_answer": "",
-                            "status": 0
-                        }, {
-                            "examlen": "0",
-                            "knowledge8_id": "0",
-                            "paperpartid": "261684",
-                            "id": "300235",
-                            "stem": "接口测试-节-判断题题目",
-                            "score": "0.0",
-                            "difficulty": "",
-                            "analysis": "解析",
-                            "answer": "A",
-                            "optionid": "299989",
-                            "is_finished": true,
-                            "answerFinished": "B",
-                            "stem_sub": "",
-                            "testpaperid": 20000006,
-                            "stem_img": [],
-                            "analysis_img": [],
-                            "type": "determine",
-                            "options": [{
-                                "id": 299989,
-                                "questionid": "300235",
-                                "right": "1",
-                                "content_img": [],
-                                "content": "正确",
-                                "content_item": "A",
-                                "status": false
-                            }, {
-                                "id": 299989,
-                                "questionid": "300235",
-                                "right": "0",
-                                "content_img": [],
-                                "content": "错误",
-                                "content_item": "B",
-                                "status": true
-                            }],
-                            "is_favorite": 0,
-                            "user_answer": "",
-                            "status": 0
-                        }],
-                        "examlen": "60",
+                        "questions": [
+                            {
+                                "examlen": "3",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261729",
+                                "id": "300361",
+                                "stem": "接口-模考-单选题",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "A",
+                                "optionid": "300051",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "20000427",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "single_choice",
+                                "options": [
+                                    {
+                                        "id": 300051,
+                                        "questionid": "300361",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300051,
+                                        "questionid": "300361",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300051,
+                                        "questionid": "300361",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300051,
+                                        "questionid": "300361",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            },
+                            {
+                                "examlen": "3",
+                                "knowledge8_id": "0",
+                                "paperpartid": "261730",
+                                "id": "300362",
+                                "stem": "接口测试-模考-多选题",
+                                "score": "0.0",
+                                "difficulty": "",
+                                "analysis": "解析内容",
+                                "answer": "AB",
+                                "optionid": "300052",
+                                "is_finished": false,
+                                "answerFinished": "",
+                                "stem_sub": "",
+                                "testpaperid": "20000427",
+                                "stem_img": [],
+                                "analysis_img": [],
+                                "type": "multiple_choice",
+                                "options": [
+                                    {
+                                        "id": 300052,
+                                        "questionid": "300362",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "111",
+                                        "content_item": "A",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300052,
+                                        "questionid": "300362",
+                                        "right": "1",
+                                        "content_img": [],
+                                        "content": "222",
+                                        "content_item": "B",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300052,
+                                        "questionid": "300362",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "333",
+                                        "content_item": "C",
+                                        "status": false
+                                    },
+                                    {
+                                        "id": 300052,
+                                        "questionid": "300362",
+                                        "right": "0",
+                                        "content_img": [],
+                                        "content": "444",
+                                        "content_item": "D",
+                                        "status": false
+                                    }
+                                ],
+                                "is_favorite": 0,
+                                "user_answer": "",
+                                "status": 0
+                            }
+                        ],
+                        "examlen": "3",
                         "errornum": "0",
                         "doscore": "0",
                         "correctrate": "0",
                         "usetime": "0",
                         "part": [
-                            ["300230"],
-                            ["300233"],
-                            ["300231"],
-                            ["300235"]
+                            [
+                                "300361"
+                            ],
+                            [
+                                "300362"
+                            ]
                         ]
                     },
                     "message": "请求成功"
@@ -1609,8 +1534,8 @@
                                 "analysis": "这里是解析内容",
                                 "answer": "A",
                                 "optionid": "299985",
-                                "is_finished": true,
-                                "answerFinished": "A",
+                                "is_finished": false,
+                                "answerFinished": "",
                                 "stem_sub": "",
                                 "testpaperid": 20000007,
                                 "stem_img": [],
@@ -1624,7 +1549,7 @@
                                         "content_img": [],
                                         "content": "111",
                                         "content_item": "A",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299985,
@@ -1669,8 +1594,8 @@
                                 "analysis": "这里是解析内容",
                                 "answer": "A",
                                 "optionid": "299987",
-                                "is_finished": true,
-                                "answerFinished": "B",
+                                "is_finished": false,
+                                "answerFinished": "",
                                 "stem_sub": "",
                                 "testpaperid": 20000007,
                                 "stem_img": [],
@@ -1693,7 +1618,7 @@
                                         "content_img": [],
                                         "content": "222",
                                         "content_item": "B",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299987,
@@ -1729,8 +1654,8 @@
                                 "analysis": "",
                                 "answer": "AB",
                                 "optionid": "299986",
-                                "is_finished": true,
-                                "answerFinished": "BCD",
+                                "is_finished": false,
+                                "answerFinished": "",
                                 "stem_sub": "",
                                 "testpaperid": 20000007,
                                 "stem_img": [],
@@ -1753,7 +1678,7 @@
                                         "content_img": [],
                                         "content": "222",
                                         "content_item": "B",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299986,
@@ -1762,7 +1687,7 @@
                                         "content_img": [],
                                         "content": "333",
                                         "content_item": "C",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299986,
@@ -1771,7 +1696,7 @@
                                         "content_img": [],
                                         "content": "444",
                                         "content_item": "D",
-                                        "status": true
+                                        "status": false
                                     }
                                 ],
                                 "is_favorite": 1,
@@ -1789,8 +1714,8 @@
                                 "analysis": "解析",
                                 "answer": "A",
                                 "optionid": "299989",
-                                "is_finished": true,
-                                "answerFinished": "A",
+                                "is_finished": false,
+                                "answerFinished": "",
                                 "stem_sub": "",
                                 "testpaperid": 20000007,
                                 "stem_img": [],
@@ -1804,7 +1729,7 @@
                                         "content_img": [],
                                         "content": "正确",
                                         "content_item": "A",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299989,
@@ -1843,7 +1768,6 @@
                     },
                     "message": "请求成功"
                 }
-
                 ]]>
             </body>
         </assert>
@@ -2038,8 +1962,8 @@
                                 "analysis": "这里是解析内容",
                                 "answer": "A",
                                 "optionid": "299985",
-                                "is_finished": true,
-                                "answerFinished": "C",
+                                "is_finished": false,
+                                "answerFinished": "",
                                 "stem_sub": "",
                                 "testpaperid": 20000006,
                                 "stem_img": [],
@@ -2071,7 +1995,7 @@
                                         "content_img": [],
                                         "content": "333",
                                         "content_item": "C",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299985,
@@ -2098,8 +2022,8 @@
                                 "analysis": "这里是解析内容",
                                 "answer": "A",
                                 "optionid": "299987",
-                                "is_finished": true,
-                                "answerFinished": "A",
+                                "is_finished": false,
+                                "answerFinished": "",
                                 "stem_sub": "",
                                 "testpaperid": 20000006,
                                 "stem_img": [],
@@ -2113,7 +2037,7 @@
                                         "content_img": [],
                                         "content": "111",
                                         "content_item": "A",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299987,
@@ -2158,8 +2082,8 @@
                                 "analysis": "",
                                 "answer": "AB",
                                 "optionid": "299986",
-                                "is_finished": true,
-                                "answerFinished": "ABCD",
+                                "is_finished": false,
+                                "answerFinished": "",
                                 "stem_sub": "",
                                 "testpaperid": 20000006,
                                 "stem_img": [],
@@ -2173,7 +2097,7 @@
                                         "content_img": [],
                                         "content": "111",
                                         "content_item": "A",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299986,
@@ -2182,7 +2106,7 @@
                                         "content_img": [],
                                         "content": "222",
                                         "content_item": "B",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299986,
@@ -2191,7 +2115,7 @@
                                         "content_img": [],
                                         "content": "333",
                                         "content_item": "C",
-                                        "status": true
+                                        "status": false
                                     },
                                     {
                                         "id": 299986,
@@ -2200,7 +2124,7 @@
                                         "content_img": [],
                                         "content": "444",
                                         "content_item": "D",
-                                        "status": true
+                                        "status": false
                                     }
                                 ],
                                 "is_favorite": 1,
@@ -2218,8 +2142,8 @@
                                 "analysis": "解析",
                                 "answer": "A",
                                 "optionid": "299989",
-                                "is_finished": true,
-                                "answerFinished": "B",
+                                "is_finished": false,
+                                "answerFinished": "",
                                 "stem_sub": "",
                                 "testpaperid": 20000006,
                                 "stem_img": [],
@@ -2242,7 +2166,7 @@
                                         "content_img": [],
                                         "content": "错误",
                                         "content_item": "B",
-                                        "status": true
+                                        "status": false
                                     }
                                 ],
                                 "is_favorite": 0,
@@ -2272,6 +2196,7 @@
                     },
                     "message": "请求成功"
                 }
+
                 ]]>
             </body>
         </assert>
