@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testcase id="secondExamList" desc="获取真题试卷的单元列表">
+    <backgrounds>
+        <background id="background_mockExamList" desc="数据初始化">
+            <sql database="mmc_bigdata">
+                DELETE FROM `paper_log` WHERE  paperid IN(1008436,1008437,1008438,1008439);
+                INSERT INTO `mmc_bigdata`.`paper_log` (`id`, `paperid`, `uid`, `begin_time`, `end_time`, `createtime`, `score`, `finishedNum`, `unanswerNum`, `errorNum`, `markstate`, `types`, `class_id`, `objectivescore`, `subjectivescore`, `accuracyrate`, `pid`, `mokao_match_id`, `channel`)
+                    VALUES ('5032', '1008436', '20008', '1571103615', '1571103627', '1571103627', '0', '1', '1', '2', '1', '0', '0', '0', '0', '0', '0', '0', '0');
+                INSERT INTO `mmc_bigdata`.`paper_log` (`id`, `paperid`, `uid`, `begin_time`, `end_time`, `createtime`, `score`, `finishedNum`, `unanswerNum`, `errorNum`, `markstate`, `types`, `class_id`, `objectivescore`, `subjectivescore`, `accuracyrate`, `pid`, `mokao_match_id`, `channel`)
+                    VALUES ('5034', '1008436', '20008', '1571103746', '1571103749', '1571103749', '0', '1', '1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0');
+                INSERT INTO `mmc_bigdata`.`paper_log` (`id`, `paperid`, `uid`, `begin_time`, `end_time`, `createtime`, `score`, `finishedNum`, `unanswerNum`, `errorNum`, `markstate`, `types`, `class_id`, `objectivescore`, `subjectivescore`, `accuracyrate`, `pid`, `mokao_match_id`, `channel`)
+                    VALUES ('5035', '1008436', '20008', '1571105022', '1571105036', '1571105036', '0', '1', '1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0');
+        </sql>
+        </background>
+    </backgrounds>
 
     <afterSuit desc="测试后清除数据">
         <sql database="mmc_bigdata">
             DELETE FROM testpapers WHERE id IN(1008436,1008437,1008438,1008439,1008440);
+            DELETE FROM `paper_log` WHERE  paperid IN(1008436,1008437,1008438,1008439);
         </sql>
     </afterSuit>
 
@@ -70,7 +84,7 @@
                             "papernum": "5",
                             "totalnum": "5",
                             "realquestionnum": "5",
-                            "count": 1
+                            "count": 0
                         }
                     ],
                     "message": "请求成功"
@@ -118,7 +132,7 @@
                             "papernum": "2",
                             "totalnum": "2",
                             "realquestionnum": "2",
-                            "count": 8
+                            "count": 3
                         },
                         {
                             "id": 1008437,
@@ -142,7 +156,7 @@
                             "papernum": "5",
                             "totalnum": "5",
                             "realquestionnum": "5",
-                            "count": 1
+                            "count": 0
                         }
                     ],
                     "message": "请求成功"
@@ -215,7 +229,7 @@
                             "papernum": "5",
                             "totalnum": "5",
                             "realquestionnum": "5",
-                            "count": 1
+                            "count": 0
                         }
                     ],
                     "message": "请求成功"
@@ -263,7 +277,7 @@
                             "papernum": "2",
                             "totalnum": "2",
                             "realquestionnum": "2",
-                            "count": 8
+                            "count": 3
                         },
                         {
                             "id": 1008437,
@@ -287,7 +301,7 @@
                             "papernum": "5",
                             "totalnum": "5",
                             "realquestionnum": "5",
-                            "count": 1
+                            "count": 0
                         }
                     ],
                     "message": "请求成功"
