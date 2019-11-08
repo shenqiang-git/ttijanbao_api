@@ -85,7 +85,7 @@
                             "list":hasItem ("
                                 {
                                     \"id\":20000102,
-                                    \"papername\":\"模考29\",
+                                    \"papername\":required,
                                     \"papernum\":0,
                                     \"taskid\": \"0\",
                                     \"is_lock\":2,
