@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testcase id="Login" desc="登陆">
+    <case id="Login_001" desc="登录-验证码错误" tag="normal">
+        <print/>
+        <call service="Login">
+            <param name="smsVerifyCode">123</param>
+            <param name="phone">19912323916</param>
+        </call>
+
+        <print />
+        <assert>
+            <status>20099999</status>
+            <body>
+                {
+                "code": "1007",
+                "message": "验证码错误",
+                "data": null
+                }
+            </body>
+        </assert>
+    </case>
+
+    <case id="Login_002" desc="登录-手机号错误" tag="normal">
+        <print/>
+        <call service="Login">
+                <param name="smsVerifyCode">123</param>
+                <param name="phone">1991232391</param>
+        </call>
+        <print />
+        <assert>
+            <status>200</status>
+            <body>
+                {
+                "code": "1001",
+                "message": "手机号应为11位数",
+                "data": null
+                }
+            </body>
+        </assert>
+    </case>
+</testcase>

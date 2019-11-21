@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+
+    <http id="Login"
+          url="$tt.http.host/loginByPhone"
+          method="post"
+          desc="验证码登录"/>
+
+
+</services>
